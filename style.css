@@ -1,0 +1,243 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;700&display=swap');
+
+:root {
+    --pink-light: #FFC0CB; /* Light Pink */
+    --pink-medium: #FF69B4; /* Hot Pink */
+    --pink-dark: #FF1493;  /* Deep Pink */
+    --red-heart: #e74c3c; /* Red for heart */
+    --text-color: #333;
+    --paper-color: #fffaf0; /* Off-white for letter */
+}
+
+body {
+    margin: 0;
+    overflow: hidden; /* Oculta barras de desplazamiento */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--pink-light) 0%, var(--pink-medium) 100%);
+    font-family: 'Quicksand', sans-serif;
+    color: var(--text-color);
+}
+
+#anniversary-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+}
+
+/* Initial Heart */
+#initial-heart {
+    position: absolute;
+    width: 100px;
+    height: 90px;
+    background-color: var(--red-heart);
+    transform: rotate(-45deg);
+    animation: pulse 1.5s infinite alternate;
+    box-shadow: 0 0 30px rgba(255, 0, 100, 0.6);
+    cursor: pointer;
+    z-index: 5;
+}
+
+#initial-heart::before,
+#initial-heart::after {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: var(--red-heart);
+    border-radius: 50%;
+}
+
+#initial-heart::before {
+    top: -50px;
+    left: 0;
+}
+
+#initial-heart::after {
+    left: 50px;
+    top: 0;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1) rotate(-45deg); }
+    100% { transform: scale(1.1) rotate(-45deg); }
+}
+
+/* Explosion Container */
+#explosion-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 10; /* Aseguramos que las partículas estén por debajo de la carta si no están ocultas */
+}
+
+/* Animated Particles (Flowers, Gifts, Hearts) */
+.animated-item {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9; /* ESTE ES UN CAMBIO CLAVE: Z-INDEX 9 para que la carta esté encima */
+}
+
+.animated-item.flower {
+    width: 80px; /* Aumentado de 50px */
+    height: 80px; /* Aumentado de 50px */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.animated-item.gift {
+    width: 90px; /* Aumentado de 60px */
+    height: 90px; /* Aumentado de 60px */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.animated-item.heart-particle {
+    width: 50px; /* Aumentado de 30px */
+    height: 45px; /* Proporcional a 50px */
+    background-color: var(--red-heart);
+    transform: rotate(-45deg);
+}
+
+.animated-item.heart-particle::before,
+.animated-item.heart-particle::after {
+    content: '';
+    position: absolute;
+    width: 50px; /* Aumentado de 30px */
+    height: 50px; /* Aumentado de 30px */
+    background-color: var(--red-heart);
+    border-radius: 50%;
+}
+
+.animated-item.heart-particle::before {
+    top: -25px; /* Proporcional */
+    left: 0;
+}
+
+.animated-item.heart-particle::after {
+    left: 25px; /* Proporcional */
+    top: 0;
+}
+
+/* Letter Container */
+#letter-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20; /* ESTE ES UN CAMBIO CLAVE: Z-INDEX 20 para que la carta esté encima de todo */
+    width: 80%;
+    max-width: 700px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background-color: var(--paper-color);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+    box-sizing: border-box;
+    opacity: 0;
+    animation: fadeInScaleUp 1s forwards;
+}
+
+#letter-container.hidden {
+    display: none;
+}
+
+.letter-paper {
+    font-family: 'Quicksand', sans-serif;
+    line-height: 1.8;
+    color: var(--text-color);
+    text-align: justify;
+    padding: 20px;
+    position: relative;
+}
+
+.letter-greeting {
+    font-family: 'Pacifico', cursive;
+    font-size: 2.5em;
+    color: var(--pink-dark);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+#letter-text {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+#close-letter-btn {
+    display: block;
+    margin: 30px auto 0;
+    padding: 15px 30px;
+    background-color: var(--pink-medium);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.2em;
+    font-family: 'Quicksand', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+#close-letter-btn:hover {
+    background-color: var(--pink-dark);
+    transform: translateY(-3px);
+}
+
+@keyframes fadeInScaleUp {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+/* Background Confetti/Bubbles */
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: var(--pink-light);
+    border-radius: 50%;
+    animation: floatConfetti 10s infinite ease-in-out;
+    opacity: 0;
+    z-index: 1;
+}
+
+@keyframes floatConfetti {
+    0% {
+        transform: translateY(0) translateX(0) scale(1) rotate(0deg);
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-120vh) translateX(calc(random(-100, 100) * 1px)) scale(0.5) rotate(calc(random(0, 360) * 1deg));
+        opacity: 0;
+    }
+}
+
+/* Utility Class */
+.hidden {
+    display: none !important;
+}
